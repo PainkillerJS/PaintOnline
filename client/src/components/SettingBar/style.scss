@@ -1,0 +1,11 @@
+@import "../../common/variables";
+
+.setting-bar {
+  height: $toolbar-height;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-shadow: 0 4px 5px gray;
+  position: relative;
+}
