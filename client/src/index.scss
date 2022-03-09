@@ -6,7 +6,17 @@
   box-sizing: border-box;
 }
 
-.App {
+body {
+  &.pen {
+    cursor: url("./assets/img/pen.png") 0 25, auto;
+  }
+
+  &.rect {
+    cursor: crosshair;
+  }
+}
+
+.app {
   height: 100vh;
   width: 100%;
   background-color: $background-color;

@@ -4,7 +4,7 @@ import { Canvas } from "../components/Canvas";
 
 const PaintPage = () => {
   return (
-    <div className="App">
+    <div className="app">
       <Toolbar />
       <SettingBar />
       <Canvas />
