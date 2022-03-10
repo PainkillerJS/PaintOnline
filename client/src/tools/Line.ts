@@ -5,7 +5,7 @@ import type { TCanvasTool } from "./types";
 
 type TMouseEventCanvas = MouseEvent<HTMLCanvasElement>;
 
-export default class Rect extends Tool {
+export default class Line extends Tool {
   constructor(canvas: TCanvasTool) {
     super(canvas);
     this.listen();
@@ -32,21 +32,17 @@ export default class Rect extends Tool {
 
     this.startX = e.pageX - e.currentTarget.offsetLeft;
     this.startY = e.pageY - e.currentTarget.offsetTop;
+    this.context?.moveTo(this.startX, this.startY);
     this.savedImage = this.canvas.current?.toDataURL();
   }
 
   private mouseMoveHandler(e: TMouseEventCanvas) {
     if (this.mouseDown) {
-      const currentX = e.pageX - e.currentTarget.offsetLeft;
-      const currentY = e.pageY - e.currentTarget.offsetTop;
-      const width = currentX - this.startX;
-      const height = currentY - this.startY;
-
-      this.draw(this.startX, this.startY, width, height);
+      this.draw(e.pageX - e.currentTarget.offsetLeft, e.pageY - e.currentTarget.offsetTop);
     }
   }
 
-  private draw(x: number, y: number, w: number, h: number) {
+  private draw(x: number, y: number) {
     if (this.savedImage) {
       const img = new Image();
 
@@ -55,10 +51,12 @@ export default class Rect extends Tool {
         if (this.context) {
           this.context.clearRect(0, 0, this.canvas.current?.width || 0, this.canvas.current?.height || 0);
           this.context.drawImage(img, 0, 0, this.canvas.current?.width || 0, this.canvas.current?.height || 0);
+
           this.context.beginPath();
+          this.context.moveTo(this.startX, this.startY);
+          this.context.lineTo(x, y);
 
           this.context.strokeStyle = "black";
-          this.context.rect(x, y, w, h);
           this.context.stroke();
         }
       };

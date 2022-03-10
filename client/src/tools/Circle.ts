@@ -5,7 +5,7 @@ import type { TCanvasTool } from "./types";
 
 type TMouseEventCanvas = MouseEvent<HTMLCanvasElement>;
 
-export default class Rect extends Tool {
+export default class Circle extends Tool {
   constructor(canvas: TCanvasTool) {
     super(canvas);
     this.listen();
@@ -41,12 +41,13 @@ export default class Rect extends Tool {
       const currentY = e.pageY - e.currentTarget.offsetTop;
       const width = currentX - this.startX;
       const height = currentY - this.startY;
+      const radius = Math.sqrt(width ** 2 + height ** 2);
 
-      this.draw(this.startX, this.startY, width, height);
+      this.draw(this.startX, this.startY, radius);
     }
   }
 
-  private draw(x: number, y: number, w: number, h: number) {
+  private draw(x: number, y: number, radius: number) {
     if (this.savedImage) {
       const img = new Image();
 
@@ -58,7 +59,7 @@ export default class Rect extends Tool {
           this.context.beginPath();
 
           this.context.strokeStyle = "black";
-          this.context.rect(x, y, w, h);
+          this.context.arc(x, y, radius, 0, 2 * Math.PI);
           this.context.stroke();
         }
       };

@@ -1,4 +1,4 @@
-import type { TCanvasTool } from "./types";
+import type { TCanvasTool } from "../types";
 
 export default class Tool {
   constructor(canvas: TCanvasTool) {

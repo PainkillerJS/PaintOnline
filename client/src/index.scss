@@ -11,8 +11,14 @@ body {
     cursor: url("./assets/img/pen.png") 0 25, auto;
   }
 
-  &.rect {
+  &.rect,
+  &.circle,
+  &.line {
     cursor: crosshair;
+  }
+
+  &.eraser {
+    cursor: url("./assets/img/eraser.png") 0 25, auto;
   }
 }
 

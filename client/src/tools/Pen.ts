@@ -1,6 +1,6 @@
 import type { MouseEvent } from "react";
 
-import Tool from "./Tool";
+import Tool from "./parents/Tool";
 import type { TCanvasTool } from "./types";
 
 type TMouseEventCanvas = MouseEvent<HTMLCanvasElement>;
@@ -34,8 +34,11 @@ export default class Pen extends Tool {
     }
   }
 
-  private draw(x: number, y: number) {
-    this.context?.lineTo(x, y);
-    this.context?.stroke();
+  protected draw(x: number, y: number) {
+    if (this.context) {
+      this.context.strokeStyle = "black";
+      this.context.lineTo(x, y);
+      this.context.stroke();
+    }
   }
 }
